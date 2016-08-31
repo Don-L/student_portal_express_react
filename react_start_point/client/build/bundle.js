@@ -19810,7 +19810,8 @@
 	        surname: student.surname,
 	        first_names: student.first_names,
 	        cohort: student.cohort,
-	        onStudentClick: this.onStudentClick
+	        onStudentClick: this.onStudentClick,
+	        onTaskClick: this.onTaskClick
 	      });
 	    }.bind(this));
 	
@@ -19828,7 +19829,8 @@
 	        surname: student.surname,
 	        first_names: student.first_names,
 	        cohort: student.cohort,
-	        onStudentClick: this.onStudentClick
+	        onStudentClick: this.onStudentClick,
+	        onTaskClick: this.onTaskClick
 	      });
 	    }
 	  },
@@ -19844,6 +19846,10 @@
 	
 	  onStudentClick: function onStudentClick(id) {
 	    this.setState({ viewer: id });
+	  },
+	
+	  onTaskClick: function onTaskClick(id) {
+	    console.log('now update the database!');
 	  }
 	
 	});
@@ -19857,6 +19863,7 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
+	var TaskList = __webpack_require__(161);
 	
 	var Student = React.createClass({
 	  displayName: 'Student',
@@ -19878,12 +19885,14 @@
 	        null,
 	        'cohort ',
 	        this.props.cohort
-	      )
+	      ),
+	      React.createElement(TaskList, { all_tasks: this.props.all_tasks,
+	        onTaskClick: this.props.onTaskClick
+	      })
 	    );
 	  },
 	
 	  onClick: function onClick(e) {
-	    console.log('click!');
 	    e.preventDefault();
 	    this.props.onStudentClick(this.props.id);
 	  }
@@ -19891,6 +19900,77 @@
 	});
 	
 	module.exports = Student;
+
+/***/ },
+/* 161 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var TaskCheck = __webpack_require__(162);
+	
+	var TaskList = React.createClass({
+	  displayName: 'TaskList',
+	
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(TaskCheck, { description: 'Learn to use a computer',
+	        task_number: 1,
+	        onTaskClick: this.props.onTaskClick
+	      }),
+	      React.createElement(TaskCheck, { description: 'Type without looking',
+	        task_number: 2,
+	        onTaskClick: this.props.onTaskClick
+	      })
+	    );
+	  }
+	
+	  // getTask: function(id) {
+	  //   let all_tasks = this.props.all_tasks;
+	  //   let task = all_tasks.filter(function(item) {
+	  //     return item.id === id;
+	  //   });
+	  //   task = task[0];
+	  //   return task;
+	  // }
+	
+	});
+	
+	module.exports = TaskList;
+
+/***/ },
+/* 162 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var React = __webpack_require__(1);
+	
+	var TaskCheck = React.createClass({
+	  displayName: "TaskCheck",
+	
+	
+	  render: function render() {
+	    return React.createElement(
+	      "label",
+	      { onClick: this.onTaskClick },
+	      React.createElement("input", { type: "checkbox", id: this.props.task_number, value: "first_checkbox" }),
+	      " ",
+	      this.props.description
+	    );
+	  },
+	
+	  onTaskClick: function onTaskClick() {
+	    this.props.onTaskClick(this.props.task_number);
+	  }
+	
+	});
+	
+	module.exports = TaskCheck;
 
 /***/ }
 /******/ ]);

@@ -52,6 +52,7 @@ var StudentsBox = React.createClass({
                    first_names={student.first_names}
                    cohort={student.cohort}
                    onStudentClick={this.onStudentClick}
+                   onTaskClick={this.onTaskClick}
           />
         );
       }.bind(this));
@@ -72,6 +73,7 @@ var StudentsBox = React.createClass({
                  first_names={student.first_names}
                  cohort={student.cohort}
                  onStudentClick={this.onStudentClick}
+                 onTaskClick={this.onTaskClick}
         />
     )
     }
@@ -89,6 +91,10 @@ var StudentsBox = React.createClass({
 
   onStudentClick: function(id) {
     this.setState({viewer: id});
+  },
+
+  onTaskClick: function(id) {
+    console.log('now update the database!');
   }
 
 });

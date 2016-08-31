@@ -16,7 +16,7 @@ function getAllStudents(req, res, next) {
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved ALL students'
+          message: 'Retrieved all students'
         });
     })
     .catch(function (err) {

@@ -1,6 +1,6 @@
 var React = require('react');
 
-var PuppiesBox = React.createClass({
+var StudentsBox = React.createClass({
 
   loadResourcesFromServer: function() {
     var url = this.props.url;
@@ -29,10 +29,11 @@ var PuppiesBox = React.createClass({
   render: function(){
     console.log("hello", this.state.data);
 
-    const nodes = this.state.data.map(function(puppy, index) {
+    const nodes = this.state.data.map(function(student, index) {
         return (
           <div>
-            <h3>{puppy.name}</h3>
+            <h3>{student.surname}, {student.first_names}</h3>
+            <h4>cohort {student.cohort}</h4>
           </div>
         );
       }.bind(this));
@@ -46,4 +47,4 @@ var PuppiesBox = React.createClass({
 
 });
 
-module.exports = PuppiesBox;
+module.exports = StudentsBox;

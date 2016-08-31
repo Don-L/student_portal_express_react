@@ -48,10 +48,10 @@
 	
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
-	var PuppiesBox = __webpack_require__(159);
+	var StudentsBox = __webpack_require__(159);
 	
 	window.onload = function () {
-	  ReactDOM.render(React.createElement(PuppiesBox, { url: 'http://localhost:3000/api/puppies' }), document.getElementById('app'));
+	  ReactDOM.render(React.createElement(StudentsBox, { url: 'http://localhost:3000/students' }), document.getElementById('app'));
 	};
 
 /***/ },
@@ -19756,8 +19756,8 @@
 	
 	var React = __webpack_require__(1);
 	
-	var PuppiesBox = React.createClass({
-	  displayName: "PuppiesBox",
+	var StudentsBox = React.createClass({
+	  displayName: "StudentsBox",
 	
 	
 	  loadResourcesFromServer: function loadResourcesFromServer() {
@@ -19787,14 +19787,22 @@
 	  render: function render() {
 	    console.log("hello", this.state.data);
 	
-	    var nodes = this.state.data.map(function (puppy, index) {
+	    var nodes = this.state.data.map(function (student, index) {
 	      return React.createElement(
 	        "div",
 	        null,
 	        React.createElement(
 	          "h3",
 	          null,
-	          puppy.name
+	          student.surname,
+	          ", ",
+	          student.first_names
+	        ),
+	        React.createElement(
+	          "h4",
+	          null,
+	          "cohort ",
+	          student.cohort
 	        )
 	      );
 	    }.bind(this));
@@ -19808,7 +19816,7 @@
 	
 	});
 	
-	module.exports = PuppiesBox;
+	module.exports = StudentsBox;
 
 /***/ }
 /******/ ]);

@@ -29,12 +29,14 @@ var StudentsBox = React.createClass({
   render: function(){
     console.log("hello", this.state.data);
 
-    const nodes = this.state.data.map(function(student, index) {
+    const nodes = this.state.data.map(function(student) {
         return (
-          <div>
-            <h3>{student.surname}, {student.first_names}</h3>
-            <h4>cohort {student.cohort}</h4>
-          </div>
+          <Student key={student.id}
+                   surname={student.surname}
+                   first_names={student.first_names}
+                   cohort={student.cohort}
+                   onClick={this.onStudentClick}
+          />
         );
       }.bind(this));
 

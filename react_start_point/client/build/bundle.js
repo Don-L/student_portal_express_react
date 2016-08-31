@@ -19787,10 +19787,10 @@
 	  render: function render() {
 	    console.log("hello", this.state.data);
 	
-	    var nodes = this.state.data.map(function (student, index) {
+	    var nodes = this.state.data.map(function (student) {
 	      return React.createElement(
 	        "div",
-	        null,
+	        { key: student.id },
 	        React.createElement(
 	          "h3",
 	          null,

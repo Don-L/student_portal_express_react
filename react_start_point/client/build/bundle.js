@@ -19796,30 +19796,54 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      studentData: [],
-	      allTasksData: []
+	      allTasksData: [],
+	      viewer: 'admin'
 	    };
 	  },
 	
 	  render: function render() {
-	    console.log("hello", this.state.studentData);
-	    console.log("hello again", this.state.allTasksData);
-	    console.log("hello for a final time", this.state.allTasksData[1]);
 	
 	    var nodes = this.state.studentData.map(function (student) {
 	      return React.createElement(Student, { key: student.id,
 	        all_tasks: this.state.allTasksData,
+	        id: student.id,
 	        surname: student.surname,
 	        first_names: student.first_names,
 	        cohort: student.cohort,
-	        onClick: this.onStudentClick
+	        onStudentClick: this.onStudentClick
 	      });
 	    }.bind(this));
 	
-	    return React.createElement(
-	      'div',
-	      null,
-	      nodes
-	    );
+	    if (this.state.viewer === 'admin') {
+	      return React.createElement(
+	        'div',
+	        null,
+	        nodes
+	      );
+	    } else {
+	      var student = this.getStudentById(this.state.viewer);
+	      return React.createElement(Student, { key: student.id,
+	        all_tasks: this.state.allTasksData,
+	        id: student.id,
+	        surname: student.surname,
+	        first_names: student.first_names,
+	        cohort: student.cohort,
+	        onStudentClick: this.onStudentClick
+	      });
+	    }
+	  },
+	
+	  //returns array
+	  getStudentById: function getStudentById(id) {
+	    var allStudents = this.state.studentData;
+	    var student = allStudents.filter(function (stud) {
+	      return stud.id === id;
+	    });
+	    return student[0];
+	  },
+	
+	  onStudentClick: function onStudentClick(id) {
+	    this.setState({ viewer: id });
 	  }
 	
 	});
@@ -19841,7 +19865,7 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { onClick: this.onClick },
 	      React.createElement(
 	        'h2',
 	        null,
@@ -19854,10 +19878,14 @@
 	        null,
 	        'cohort ',
 	        this.props.cohort
-	      ),
-	      React.createElement(Tasklist, { student_id: this.props.id,
-	        all_tasks: this.props.all_tasks })
+	      )
 	    );
+	  },
+	
+	  onClick: function onClick(e) {
+	    console.log('click!');
+	    e.preventDefault();
+	    this.props.onStudentClick(this.props.id);
 	  }
 	
 	});

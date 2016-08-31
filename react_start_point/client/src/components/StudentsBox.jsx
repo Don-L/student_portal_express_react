@@ -36,32 +36,59 @@ var StudentsBox = React.createClass({
   getInitialState: function () {
     return {
       studentData: [],
-      allTasksData: []
+      allTasksData: [],
+      viewer: 'admin'
     };
   },
 
   render: function(){
-    console.log("hello", this.state.studentData);
-    console.log("hello again", this.state.allTasksData);
-    console.log("hello for a final time", this.state.allTasksData[1]);
 
     const nodes = this.state.studentData.map(function(student) {
         return (
           <Student key={student.id}
                    all_tasks={this.state.allTasksData}
+                   id={student.id}
                    surname={student.surname}
                    first_names={student.first_names}
                    cohort={student.cohort}
-                   onClick={this.onStudentClick}
+                   onStudentClick={this.onStudentClick}
           />
         );
       }.bind(this));
 
-    return (
-      <div>
-        {nodes}
-      </div>
-    );
+    if (this.state.viewer === 'admin') {
+      return (
+        <div>
+          {nodes}
+        </div>
+      );
+    } else {
+      let student = this.getStudentById(this.state.viewer);
+      return (
+        <Student key={student.id}
+                 all_tasks={this.state.allTasksData}
+                 id={student.id}
+                 surname={student.surname}
+                 first_names={student.first_names}
+                 cohort={student.cohort}
+                 onStudentClick={this.onStudentClick}
+        />
+    )
+    }
+
+  },
+
+//returns array
+  getStudentById: function(id) {
+    let allStudents = this.state.studentData;
+    let student = allStudents.filter(function(stud) {
+      return stud.id === id;
+    });
+    return student[0];
+  },
+
+  onStudentClick: function(id) {
+    this.setState({viewer: id});
   }
 
 });

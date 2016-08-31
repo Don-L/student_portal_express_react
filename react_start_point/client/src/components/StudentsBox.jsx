@@ -1,19 +1,32 @@
 var React = require('react');
+var Student = require('./Student.jsx');
 
 var StudentsBox = React.createClass({
 
   loadResourcesFromServer: function() {
-    var url = this.props.url;
-    var request = new XMLHttpRequest();
-    request.open("GET", url);
-    request.setRequestHeader("Content-Type", "application/json");
-    request.onload = function() {
-      if(request.status === 200) {
-        var data = JSON.parse(request.responseText);
-        this.setState({data: data.data});
+    var studentsURL = this.props.studentsURL;
+    var studentsRequest = new XMLHttpRequest();
+    studentsRequest.open("GET", studentsURL);
+    studentsRequest.setRequestHeader("Content-Type", "application/json");
+    studentsRequest.onload = function() {
+      if(studentsRequest.status === 200) {
+        var data = JSON.parse(studentsRequest.responseText);
+        this.setState({studentData: data.data});
       }
     }.bind(this);
-    request.send(null);
+    studentsRequest.send(null);
+
+    var allTasksURL = this.props.allTasksURL;
+    var allTasksRequest = new XMLHttpRequest();
+    allTasksRequest.open("GET", allTasksURL);
+    allTasksRequest.setRequestHeader("Content-Type", "application/json");
+    allTasksRequest.onload = function() {
+      if(allTasksRequest.status === 200) {
+        var data = JSON.parse(allTasksRequest.responseText);
+        this.setState({allTasksData: data.data});
+      }
+    }.bind(this);
+    allTasksRequest.send(null);
   },
 
   componentDidMount: function() {
@@ -22,16 +35,20 @@ var StudentsBox = React.createClass({
 
   getInitialState: function () {
     return {
-      data: []
+      studentData: [],
+      allTasksData: []
     };
   },
 
   render: function(){
-    console.log("hello", this.state.data);
+    console.log("hello", this.state.studentData);
+    console.log("hello again", this.state.allTasksData);
+    console.log("hello for a final time", this.state.allTasksData[1]);
 
-    const nodes = this.state.data.map(function(student) {
+    const nodes = this.state.studentData.map(function(student) {
         return (
           <Student key={student.id}
+                   all_tasks={this.state.allTasksData}
                    surname={student.surname}
                    first_names={student.first_names}
                    cohort={student.cohort}

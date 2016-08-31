@@ -51,7 +51,9 @@
 	var StudentsBox = __webpack_require__(159);
 	
 	window.onload = function () {
-	  ReactDOM.render(React.createElement(StudentsBox, { url: 'http://localhost:3000/students' }), document.getElementById('app'));
+	  ReactDOM.render(React.createElement(StudentsBox, { studentsURL: 'http://localhost:3000/students',
+	    allTasksURL: 'http://localhost:3000/all_tasks'
+	  }), document.getElementById('app'));
 	};
 
 /***/ },
@@ -19752,26 +19754,39 @@
 /* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	var React = __webpack_require__(1);
+	var Student = __webpack_require__(160);
 	
 	var StudentsBox = React.createClass({
-	  displayName: "StudentsBox",
+	  displayName: 'StudentsBox',
 	
 	
 	  loadResourcesFromServer: function loadResourcesFromServer() {
-	    var url = this.props.url;
-	    var request = new XMLHttpRequest();
-	    request.open("GET", url);
-	    request.setRequestHeader("Content-Type", "application/json");
-	    request.onload = function () {
-	      if (request.status === 200) {
-	        var data = JSON.parse(request.responseText);
-	        this.setState({ data: data.data });
+	    var studentsURL = this.props.studentsURL;
+	    var studentsRequest = new XMLHttpRequest();
+	    studentsRequest.open("GET", studentsURL);
+	    studentsRequest.setRequestHeader("Content-Type", "application/json");
+	    studentsRequest.onload = function () {
+	      if (studentsRequest.status === 200) {
+	        var data = JSON.parse(studentsRequest.responseText);
+	        this.setState({ studentData: data.data });
 	      }
 	    }.bind(this);
-	    request.send(null);
+	    studentsRequest.send(null);
+	
+	    var allTasksURL = this.props.allTasksURL;
+	    var allTasksRequest = new XMLHttpRequest();
+	    allTasksRequest.open("GET", allTasksURL);
+	    allTasksRequest.setRequestHeader("Content-Type", "application/json");
+	    allTasksRequest.onload = function () {
+	      if (allTasksRequest.status === 200) {
+	        var data = JSON.parse(allTasksRequest.responseText);
+	        this.setState({ allTasksData: data.data });
+	      }
+	    }.bind(this);
+	    allTasksRequest.send(null);
 	  },
 	
 	  componentDidMount: function componentDidMount() {
@@ -19780,35 +19795,28 @@
 	
 	  getInitialState: function getInitialState() {
 	    return {
-	      data: []
+	      studentData: [],
+	      allTasksData: []
 	    };
 	  },
 	
 	  render: function render() {
-	    console.log("hello", this.state.data);
+	    console.log("hello", this.state.studentData);
+	    console.log("hello again", this.state.allTasksData);
+	    console.log("hello for a final time", this.state.allTasksData[1]);
 	
-	    var nodes = this.state.data.map(function (student) {
-	      return React.createElement(
-	        "div",
-	        { key: student.id },
-	        React.createElement(
-	          "h3",
-	          null,
-	          student.surname,
-	          ", ",
-	          student.first_names
-	        ),
-	        React.createElement(
-	          "h4",
-	          null,
-	          "cohort ",
-	          student.cohort
-	        )
-	      );
+	    var nodes = this.state.studentData.map(function (student) {
+	      return React.createElement(Student, { key: student.id,
+	        all_tasks: this.state.allTasksData,
+	        surname: student.surname,
+	        first_names: student.first_names,
+	        cohort: student.cohort,
+	        onClick: this.onStudentClick
+	      });
 	    }.bind(this));
 	
 	    return React.createElement(
-	      "div",
+	      'div',
 	      null,
 	      nodes
 	    );
@@ -19817,6 +19825,44 @@
 	});
 	
 	module.exports = StudentsBox;
+
+/***/ },
+/* 160 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	
+	var Student = React.createClass({
+	  displayName: 'Student',
+	
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h2',
+	        null,
+	        this.props.surname,
+	        ', ',
+	        this.props.first_names
+	      ),
+	      React.createElement(
+	        'h3',
+	        null,
+	        'cohort ',
+	        this.props.cohort
+	      ),
+	      React.createElement(Tasklist, { student_id: this.props.id,
+	        all_tasks: this.props.all_tasks })
+	    );
+	  }
+	
+	});
+	
+	module.exports = Student;
 
 /***/ }
 /******/ ]);

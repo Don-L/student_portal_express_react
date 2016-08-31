@@ -4,7 +4,9 @@ var StudentsBox = require('./components/StudentsBox.jsx');
 
 window.onload = function(){
   ReactDOM.render(
-    <StudentsBox url="http://localhost:3000/students" />,
+    <StudentsBox studentsURL="http://localhost:3000/students"
+                 allTasksURL="http://localhost:3000/all_tasks"
+    />,
     document.getElementById('app')
   );
 }

@@ -24,6 +24,36 @@ function getAllStudents(req, res, next) {
     });
 }
 
+function getAllTasks(req, res, next) {
+  db.any('select * from all_tasks')
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved all tasks'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+function getAllCompletedTasks(req, res, next) {
+  db.any('select * from completed_tasks')
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved all completed tasks'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
 // function getSinglePuppy(req, res, next) {
 //   var pupID = parseInt(req.params.id);
 //   db.one('select * from pups where id = $1', pupID)
@@ -91,7 +121,9 @@ function getAllStudents(req, res, next) {
 // }
 
 module.exports = {
-  getAllStudents: getAllStudents
+  getAllStudents: getAllStudents,
+  getAllTasks: getAllTasks,
+  getAllCompletedTasks: getAllCompletedTasks
   // getSinglePuppy: getSinglePuppy,
   // createPuppy: createPuppy,
   // updatePuppy: updatePuppy,

@@ -97,7 +97,6 @@ var StudentsBox = React.createClass({
     let completedTasksUrl=this.props.completedTasksUrl;
     let request = new XMLHttpRequest();
     let params = {"student_id": `${student}`, "task_id": `${task}`};
-    console.log(params);
     request.open('POST', completedTasksUrl, true);
     request.setRequestHeader('Content-Type', 'application/json');
     request.send(JSON.stringify(params));

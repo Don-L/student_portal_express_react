@@ -54,6 +54,7 @@ function getAllCompletedTasks(req, res, next) {
     });
 }
 
+
 // function getSinglePuppy(req, res, next) {
 //   var pupID = parseInt(req.params.id);
 //   db.one('select * from pups where id = $1', pupID)
@@ -73,9 +74,10 @@ function getAllCompletedTasks(req, res, next) {
 function createCompletedTask(req, res, next) {
   console.log('function called');
   req.body.student_id = parseInt(req.body.student_id);
+  console.log(req.body.student_id);
   req.body.task_id = parseInt(req.body.task_id);
   db.none('insert into completed_tasks(student_id, task_id)' +
-      `values(${student_id}, ${task_id})`,
+      `values(${req.body.student_id}, ${req.body.task_id})`,
     req.body)
     .then(function () {
       res.status(200)
@@ -127,9 +129,9 @@ function createCompletedTask(req, res, next) {
 module.exports = {
   getAllStudents: getAllStudents,
   getAllTasks: getAllTasks,
-  getAllCompletedTasks: getAllCompletedTasks
+  getAllCompletedTasks: getAllCompletedTasks,
   // getSinglePuppy: getSinglePuppy,
-  // createPuppy: createPuppy,
+  createCompletedTask: createCompletedTask
   // updatePuppy: updatePuppy,
   // removePuppy: removePuppy
 };

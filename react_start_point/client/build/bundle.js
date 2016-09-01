@@ -19853,7 +19853,6 @@
 	    var completedTasksUrl = this.props.completedTasksUrl;
 	    var request = new XMLHttpRequest();
 	    var params = { "student_id": '' + student, "task_id": '' + task };
-	    console.log(params);
 	    request.open('POST', completedTasksUrl, true);
 	    request.setRequestHeader('Content-Type', 'application/json');
 	    request.send(JSON.stringify(params));

@@ -8,7 +8,7 @@ router.get('/students', db.getAllStudents);
 router.get('/all_tasks', db.getAllTasks);
 router.get('/completed_tasks', db.getAllCompletedTasks);
 // router.get('/api/puppies/:id', db.getSinglePuppy);
-// router.post('/api/puppies', db.createPuppy);
+router.post('/completed_tasks', db.createCompletedTask);
 // router.put('/api/puppies/:id', db.updatePuppy);
 // router.delete('/api/puppies/:id', db.removePuppy);
 

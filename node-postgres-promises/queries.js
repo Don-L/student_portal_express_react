@@ -6,7 +6,7 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://http://91.215.184.162/:5432/students_express_react_database';
+var connectionString = 'postgres://91.215.184.162:5432/students_express_react_database';
 var db = pgp(connectionString);
 
 function getAllStudents(req, res, next) {

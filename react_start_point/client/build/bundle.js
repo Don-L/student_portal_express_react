@@ -51,9 +51,9 @@
 	var StudentsBox = __webpack_require__(159);
 	
 	window.onload = function () {
-	  ReactDOM.render(React.createElement(StudentsBox, { studentsURL: 'http://http://91.215.184.162/:3000/students',
-	    allTasksURL: 'http://http://91.215.184.162/:3000/all_tasks',
-	    completedTasksUrl: 'http://http://91.215.184.162/:3000/completed_tasks'
+	  ReactDOM.render(React.createElement(StudentsBox, { studentsURL: 'http://91.215.184.162:3000/students',
+	    allTasksURL: 'http://91.215.184.162:3000/all_tasks',
+	    completedTasksUrl: 'http://91.215.184.162:3000/completed_tasks'
 	  }), document.getElementById('app'));
 	};
 

@@ -94,7 +94,7 @@ var StudentsBox = React.createClass({
   },
 
   onTaskClick: function(id) {
-    console.log('now update the database!');
+    console.log('now update the database. should be easy.');
   }
 
 });

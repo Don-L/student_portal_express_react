@@ -10,7 +10,7 @@ var connectionString = 'postgres://localhost:5432/students_express_react_databas
 var db = pgp(connectionString);
 
 function getAllStudents(req, res, next) {
-  db.any('select * from students')
+  db.any('select * from students order by surname asc')
     .then(function (data) {
       res.status(200)
         .json({

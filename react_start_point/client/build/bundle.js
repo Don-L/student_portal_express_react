@@ -19849,7 +19849,7 @@
 	  },
 	
 	  onTaskClick: function onTaskClick(id) {
-	    console.log('now update the database!');
+	    console.log('now update the database. should be easy.');
 	  }
 	
 	});

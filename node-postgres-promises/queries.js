@@ -6,7 +6,7 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://localhost:5432/students_express_react_database';
+var connectionString = 'postgres://http://91.215.184.162/:5432/students_express_react_database';
 var db = pgp(connectionString);
 
 function getAllStudents(req, res, next) {
@@ -72,9 +72,7 @@ function getAllCompletedTasks(req, res, next) {
 // }
 //
 function createCompletedTask(req, res, next) {
-  console.log('function called');
   req.body.student_id = parseInt(req.body.student_id);
-  console.log(req.body.student_id);
   req.body.task_id = parseInt(req.body.task_id);
   db.none('insert into completed_tasks(student_id, task_id)' +
       `values(${req.body.student_id}, ${req.body.task_id})`,

@@ -9,10 +9,12 @@ const TaskList = React.createClass({
         <TaskCheck description={'Learn to use a computer'}
               task_number={1}
               onTaskClick={this.props.onTaskClick}
+              student_id={this.props.student_id}
         />
       <TaskCheck description={'Type without looking'}
               task_number={2}
               onTaskClick={this.props.onTaskClick}
+              student_id={this.props.student_id}
         />
       </div>
     )

@@ -6,6 +6,7 @@ window.onload = function(){
   ReactDOM.render(
     <StudentsBox studentsURL="http://localhost:3000/students"
                  allTasksURL="http://localhost:3000/all_tasks"
+                 completedTasksUrl="http://localhost:3000/completed_tasks"
     />,
     document.getElementById('app')
   );

@@ -52,7 +52,8 @@
 	
 	window.onload = function () {
 	  ReactDOM.render(React.createElement(StudentsBox, { studentsURL: 'http://localhost:3000/students',
-	    allTasksURL: 'http://localhost:3000/all_tasks'
+	    allTasksURL: 'http://localhost:3000/all_tasks',
+	    completedTasksUrl: 'http://localhost:3000/completed_tasks'
 	  }), document.getElementById('app'));
 	};
 
@@ -19848,8 +19849,14 @@
 	    this.setState({ viewer: id });
 	  },
 	
-	  onTaskClick: function onTaskClick(id) {
-	    console.log('now update the database. should be easy.');
+	  onTaskClick: function onTaskClick(student, task) {
+	    var completedTasksUrl = this.props.completedTasksUrl;
+	    var request = new XMLHttpRequest();
+	    var params = { "student_id": '' + student, "task_id": '' + task };
+	    console.log(params);
+	    request.open('POST', completedTasksUrl, true);
+	    request.setRequestHeader('Content-Type', 'application/json');
+	    request.send(JSON.stringify(params));
 	  }
 	
 	});
@@ -19887,7 +19894,8 @@
 	        this.props.cohort
 	      ),
 	      React.createElement(TaskList, { all_tasks: this.props.all_tasks,
-	        onTaskClick: this.props.onTaskClick
+	        onTaskClick: this.props.onTaskClick,
+	        student_id: this.props.id
 	      })
 	    );
 	  },
@@ -19920,11 +19928,13 @@
 	      null,
 	      React.createElement(TaskCheck, { description: 'Learn to use a computer',
 	        task_number: 1,
-	        onTaskClick: this.props.onTaskClick
+	        onTaskClick: this.props.onTaskClick,
+	        student_id: this.props.student_id
 	      }),
 	      React.createElement(TaskCheck, { description: 'Type without looking',
 	        task_number: 2,
-	        onTaskClick: this.props.onTaskClick
+	        onTaskClick: this.props.onTaskClick,
+	        student_id: this.props.student_id
 	      })
 	    );
 	  }
@@ -19965,7 +19975,7 @@
 	  },
 	
 	  onTaskClick: function onTaskClick() {
-	    this.props.onTaskClick(this.props.task_number);
+	    this.props.onTaskClick(this.props.student_id, this.props.task_number);
 	  }
 	
 	});

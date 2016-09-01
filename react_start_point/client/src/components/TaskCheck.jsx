@@ -9,7 +9,7 @@ const TaskCheck = React.createClass({
   },
 
   onTaskClick: function() {
-    this.props.onTaskClick(this.props.task_number);
+    this.props.onTaskClick(this.props.student_id, this.props.task_number);
   }
 
 });

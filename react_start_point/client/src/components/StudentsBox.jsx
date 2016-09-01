@@ -93,8 +93,14 @@ var StudentsBox = React.createClass({
     this.setState({viewer: id});
   },
 
-  onTaskClick: function(id) {
-    console.log('now update the database. should be easy.');
+  onTaskClick: function(student, task) {
+    let completedTasksUrl=this.props.completedTasksUrl;
+    let request = new XMLHttpRequest();
+    let params = {"student_id": `${student}`, "task_id": `${task}`};
+    console.log(params);
+    request.open('POST', completedTasksUrl, true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.send(JSON.stringify(params));
   }
 
 });

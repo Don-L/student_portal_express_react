@@ -10,6 +10,7 @@ const Student = React.createClass({
         <h3>cohort {this.props.cohort}</h3>
         <TaskList all_tasks={this.props.all_tasks}
                   onTaskClick={this.props.onTaskClick}
+                  student_id={this.props.id}
         />
       </div>
     );
